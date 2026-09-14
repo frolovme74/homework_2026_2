@@ -107,4 +107,29 @@ QUnit.module('Тестируем функцию groupBy', () => {
             ]
         }, 'Значения 0, null и пустая строка не должны перезаписывать друг друга');
     });
+
+    QUnit.test('Выбрасывает TypeError при некорректном аргументе array', (assert) => {
+        const invalidArrays = [null, undefined, 42, 'not-an-array', {}, true];
+
+        invalidArrays.forEach((invalidValue) => {
+            assert.throws(
+                () => groupBy(invalidValue, 'category'),
+                TypeError,
+                `Должен выбросить TypeError, если array передан как ${String(invalidValue)}`
+            );
+        });
+    });
+
+    QUnit.test('Выбрасывает TypeError при некорректном аргументе key', (assert) => {
+        const validArray = [{ id: 1, category: 'fruit' }];
+        const invalidKeys = [null, undefined, 123, {}, [], true, Symbol('key')];
+
+        invalidKeys.forEach((invalidKey) => {
+            assert.throws(
+                () => groupBy(validArray, invalidKey),
+                TypeError,
+                `Должен выбросить TypeError, если key передан как ${String(invalidKey)}`
+            );
+        });
+    });
 });

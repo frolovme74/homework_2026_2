@@ -27,6 +27,14 @@
  * // }
  */
 function groupBy(array, key) {
+    if (!Array.isArray(array)) {
+        throw new TypeError('Первый аргумент должен быть массивом');
+    }
+
+    if (typeof key !== 'string') {
+        throw new TypeError('Второй аргумент должен быть строкой');
+    }
+
     return array.reduce((result, item) => {
         const groupValue = item[key];
         
