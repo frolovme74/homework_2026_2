@@ -132,4 +132,15 @@ QUnit.module('Тестируем функцию groupBy', () => {
             );
         });
     });
+    QUnit.test('Корректно группирует, когда значение поля совпадает со свойством прототипа (toString)', (assert) => {
+    const data = [{ category: 'toString' }];
+    const result = groupBy(data, 'category');
+
+    assert.deepEqual(result, {
+        toString: [
+            { category: 'toString' }
+        ]
+    }, 'Элемент со значением "toString" должен успешно группироваться в массив без ошибок обращения к прототипу');
 });
+});
+

@@ -45,5 +45,5 @@ const groupBy = (array, key) => {
         result[groupValue].push(item);
         
         return result;
-    }, {});
+    }, Object.create(null));
 }
