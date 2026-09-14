@@ -26,7 +26,7 @@
  * //   ]
  * // }
  */
-function groupBy(array, key) {
+const groupBy = (array, key) => {
     if (!Array.isArray(array)) {
         throw new TypeError('Первый аргумент должен быть массивом');
     }
