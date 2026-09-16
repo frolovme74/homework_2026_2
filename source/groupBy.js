@@ -36,8 +36,9 @@ const groupBy = (array, key) => {
     }
 
     return array.reduce((result, item) => {
-        if (item === null || typeof item !== 'object') {
-            throw new TypeError('Все элементы массива должны быть объектами');
+        const proto = item !== null && typeof item === 'object' ? Object.getPrototypeOf(item) : null;
+        if (item === null || typeof item !== 'object' || (proto !== Object.prototype && proto !== null)) {
+            throw new TypeError('Все элементы массива должны быть простыми объектами');
         }
         const groupValue = item[key];
         

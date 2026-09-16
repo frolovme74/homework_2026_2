@@ -158,5 +158,23 @@ QUnit.module('Тестируем функцию groupBy', () => {
             );
         });
     });
+    QUnit.test('Выбрасывает TypeError, если в массиве переданы специальные объекты (Map, Set, Date и др.)', (assert) => {
+    const exoticItems = [
+        new Date(),
+        new Map(),
+        new Set(),
+        new RegExp('abc'),
+        new Error('fail'),
+        Promise.resolve()
+    ];
+
+    exoticItems.forEach((exoticItem) => {
+        assert.throws(
+            () => groupBy([{ id: 1 }, exoticItem], 'id'),
+            TypeError,
+            `Должен выбросить TypeError, если элемент массива - ${exoticItem.constructor.name}`
+        );
+    });
+});
 });
 
