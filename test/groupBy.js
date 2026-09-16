@@ -142,5 +142,21 @@ QUnit.module('Тестируем функцию groupBy', () => {
         ]
     }, 'Элемент со значением "toString" должен успешно группироваться в массив без ошибок обращения к прототипу');
 });
+    QUnit.test('Выбрасывает TypeError, если элементы массива не являются объектами', (assert) => {
+        const invalidItemsData = [
+            [{ id: 1 }, null],
+            [{ id: 1 }, undefined],
+            [{ id: 1 }, 'string-item'],
+            [{ id: 1 }, 42]
+        ];
+
+        invalidItemsData.forEach((invalidArray) => {
+            assert.throws(
+                () => groupBy(invalidArray, 'id'),
+                TypeError,
+                `Должен выбросить TypeError при наличии недопустимого элемента в массиве`
+            );
+        });
+    });
 });
 
